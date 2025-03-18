@@ -1,0 +1,52 @@
+### GET All
+GET http://localhost:8080/api/v1/dishes
+
+### GET 1
+GET http://localhost:8080/api/v1/dishes/1
+
+### DELETE 4
+DELETE http://localhost:8080/api/v1/dishes/4
+
+### Create
+POST http://localhost:8080/api/v1/dishes
+Content-Type: application/json
+
+{
+  "name": "newFood",
+  "code": "000000",
+  "description": "description-food",
+  "calories": 555,
+  "price": 10.5,
+  "category": "someCategory",
+  "cuisine": "Italy",
+  "preparationTime": 10
+}
+
+### Update
+PUT http://localhost:8080/api/v1/dishes
+Content-Type: application/json
+
+{
+  "id": "5",
+  "name": "nameUpdated",
+  "code": "000005",
+  "description": "description-new",
+  "calories": 0,
+  "price": 999,
+  "category": "newCategory",
+  "cuisine": "Ukraine",
+  "preparationTime": 99
+}
+
+### 3 reqest tests (not default ones)
+### get fast food
+GET http://localhost:8080/api/v1/dishes/category/Fast Food
+
+### get most expensive dish
+GET http://localhost:8080/api/v1/dishes/most-expensive
+
+### lower calories than 500
+GET http://localhost:8080/api/v1/dishes/low-calorie/500
+
+### lower calories than 600
+GET http://localhost:8080/api/v1/dishes/low-calorie/600

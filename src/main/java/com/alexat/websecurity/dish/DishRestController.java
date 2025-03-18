@@ -45,4 +45,19 @@ public class DishRestController {
         dishService.delById(id);
     }
 
+    // lab2. endpoints for req
+    @GetMapping("/category/{category}")
+    public List<Dish> getDishByCategory(@PathVariable String category) {
+        return dishService.getByCategory(category);
+    }
+
+    @GetMapping("/most-expensive")
+    public Dish getMostExpensiveMeal() {
+        return dishService.getMostExpensive();
+    }
+
+    @GetMapping("/low-calorie/{maxCalories}")
+    public List<Dish> getLowCalorieMeals(@PathVariable int maxCalories) {
+        return dishService.getByCaloriesLowerThan(maxCalories);
+    }
 }

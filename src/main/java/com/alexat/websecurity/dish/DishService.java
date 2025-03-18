@@ -14,13 +14,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class DishService {
 
-    private final DishRepository repository;
+    private final DishRepository dishRepository;
 
     private List<Dish> dishes;
 
@@ -32,28 +34,46 @@ public class DishService {
         dishes.add(new Dish("4", "Pasta", "Spaghetti with marinara sauce", 650, 7.99, "Main Course", "Italian", 25));
         dishes.add(new Dish("5", "Sushi", "Salmon sushi rolls", 500, 12.49, "Seafood", "Japanese", 30));
 
-        repository.saveAll(dishes);
+        dishRepository.saveAll(dishes);
     }
 
     public List<Dish> getAll() {
-        return repository.findAll();
+        return dishRepository.findAll();
     }
 
     public Dish getById(String id) {
-        return repository.findById(id).orElse(null);
+        return dishRepository.findById(id).orElse(null);
     }
 
     public Dish create(Dish Dish) {
-        return repository.save(Dish);
+        return dishRepository.save(Dish);
     }
 
-    public  Dish update(Dish Dish) {
-        return repository.save(Dish);
+    public Dish update(Dish Dish) {
+        return dishRepository.save(Dish);
     }
 
     public void delById(String id) {
-        repository.deleteById(id);
+        dishRepository.deleteById(id);
     }
 
+    //lab 2 reqs
+    public List<Dish> getByCategory(String category) {
+        return dishRepository.findByCategory(category);
+    }
+
+    public Dish getMostExpensive() {
+        return dishRepository.findAll()
+                .stream()
+                .max(Comparator.comparing(Dish::getPrice))
+                .orElse(null);
+    }
+
+    public List<Dish> getByCaloriesLowerThan(int maxCalories) {
+        return dishRepository.findAll()
+                .stream()
+                .filter(dish -> dish.getCalories() < maxCalories)
+                .collect(Collectors.toList());
+    }
 
 }

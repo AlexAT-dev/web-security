@@ -3,6 +3,8 @@ package com.alexat.websecurity.dish;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 /*
 @author   AlexAT
 @project   websecurity
@@ -12,4 +14,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 */
 
 public interface DishRepository extends MongoRepository<Dish, String> {
+    List<Dish> findByCategory(String category);
 }
