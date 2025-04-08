@@ -1,0 +1,34 @@
+### GET All
+GET http://localhost:8080/api/v1/dishes
+Authorization: Basic admin admin
+Accept: application/json
+
+### GET All bad creds
+GET http://localhost:8080/api/v1/dishes
+Authorization: Basic test test
+Accept: application/json
+
+### GET 1
+GET http://localhost:8080/api/v1/dishes/1
+Authorization: Basic admin admin
+Accept: application/json
+
+### get fast food
+GET http://localhost:8080/api/v1/dishes/category/Fast Food
+Authorization: Basic admin admin
+Accept: application/json
+
+### get most expensive dish
+GET http://localhost:8080/api/v1/dishes/most-expensive
+Authorization: Basic admin admin
+Accept: application/json
+
+### lower calories than 500
+GET http://localhost:8080/api/v1/dishes/low-calorie/500
+Authorization: Basic admin admin
+Accept: application/json
+
+### lower calories than 600
+GET http://localhost:8080/api/v1/dishes/low-calorie/600
+Authorization: Basic admin admin
+Accept: application/json
