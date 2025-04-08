@@ -49,6 +49,10 @@ public class DishService {
         return dishRepository.save(Dish);
     }
 
+    public List<Dish> createMany(List<Dish> dishes) {
+        return dishRepository.saveAll(dishes);
+    }
+
     public Dish update(Dish Dish) {
         return dishRepository.save(Dish);
     }

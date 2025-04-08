@@ -13,6 +13,45 @@ GET http://localhost:8080/api/v1/dishes/1
 Authorization: Basic admin admin
 Accept: application/json
 
+### DELETE 4
+DELETE http://localhost:8080/api/v1/dishes/4
+Authorization: Basic admin admin
+Accept: application/json
+
+### Create
+POST http://localhost:8080/api/v1/dishes
+Authorization: Basic admin admin
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "newFood",
+  "description": "description-food",
+  "calories": 555,
+  "price": 10.5,
+  "category": "someCategory",
+  "cuisine": "Italy",
+  "preparationTime": 10
+}
+
+### Update
+PUT http://localhost:8080/api/v1/dishes
+Authorization: Basic admin admin
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "5",
+  "name": "nameUpdated",
+  "description": "description-new",
+  "calories": 0,
+  "price": 999,
+  "category": "newCategory",
+  "cuisine": "Ukraine",
+  "preparationTime": 99
+}
+
+
 ### get fast food
 GET http://localhost:8080/api/v1/dishes/category/Fast Food
 Authorization: Basic admin admin

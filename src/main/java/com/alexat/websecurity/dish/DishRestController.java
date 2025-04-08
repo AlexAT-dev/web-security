@@ -35,6 +35,11 @@ public class DishRestController {
         return dishService.create(Dish);
     }
 
+    @PostMapping("/many")
+    public List<Dish> insertMultiple(@RequestBody List<Dish> dishes) {
+        return dishService.createMany(dishes);
+    }
+
     @PutMapping
     public Dish edit(@RequestBody Dish Dish) {
         return dishService.update(Dish);
