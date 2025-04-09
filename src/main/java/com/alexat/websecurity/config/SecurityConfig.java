@@ -42,10 +42,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/dishes").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/dishes/{id}").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/dishes/category/**").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/most-expensive").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/low-calorie/**").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
 
-                        // ADMIN + SUPERADMIN — Write access
+                        // ADMIN + SUPERADMIN
+                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/most-expensive").hasAnyRole("ADMIN", "SUPERADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/low-calorie/**").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/dishes").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/dishes/many").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/dishes").hasAnyRole("ADMIN", "SUPERADMIN")
