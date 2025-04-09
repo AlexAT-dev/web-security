@@ -11,6 +11,7 @@ package com.alexat.websecurity.dish;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
@@ -20,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Dish {
+public class Dish extends AuditMetaData {
     private String id;
     private String name;
     private String description;

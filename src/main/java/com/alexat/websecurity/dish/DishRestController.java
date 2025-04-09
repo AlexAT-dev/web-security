@@ -50,6 +50,11 @@ public class DishRestController {
         dishService.delById(id);
     }
 
+    @DeleteMapping("/clear-all")
+    public void clearAllDishes() {
+        dishService.deleteAll();
+    }
+
     // lab2. endpoints for req
     @GetMapping("/category/{category}")
     public List<Dish> getDishByCategory(@PathVariable String category) {

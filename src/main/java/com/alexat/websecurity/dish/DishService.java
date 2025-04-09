@@ -45,21 +45,34 @@ public class DishService {
         return dishRepository.findById(id).orElse(null);
     }
 
-    public Dish create(Dish Dish) {
-        return dishRepository.save(Dish);
+    public Dish create(Dish dish) {
+        return dishRepository.save(dish);
     }
 
     public List<Dish> createMany(List<Dish> dishes) {
         return dishRepository.saveAll(dishes);
     }
 
-    public Dish update(Dish Dish) {
-        return dishRepository.save(Dish);
+    public Dish update(Dish dish) {
+        Dish findDish = dishRepository.findById(dish.getId()).orElse(null);
+
+        if (findDish != null)
+        {
+            dish.setCreatedBy(findDish.getCreatedBy());
+            dish.setCreatedDate(findDish.getCreatedDate());
+        }
+
+        return dishRepository.save(dish);
     }
 
     public void delById(String id) {
         dishRepository.deleteById(id);
     }
+
+    public void deleteAll() {
+        dishRepository.deleteAll();
+    }
+
 
     //lab 2 reqs
     public List<Dish> getByCategory(String category) {
