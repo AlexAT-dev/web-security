@@ -9,9 +9,12 @@ package com.alexat.websecurity.config;
 @since 09.04.2025 - 01.23
 */
 
+import org.springframework.aop.Advisor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +29,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public static Advisor preAuthorizeMethodInterceptor() {
+        return AuthorizationManagerBeforeMethodInterceptor.preAuthorize();
+    }
+
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -37,23 +47,6 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests( req -> req
                         .requestMatchers("/", "/index.html").permitAll()
-
-                        // USER, ADMIN, SUPERADMIN — Read-only endpoints
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/{id}").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/category/**").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
-
-                        // ADMIN + SUPERADMIN
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/most-expensive").hasAnyRole("ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/dishes/low-calorie/**").hasAnyRole("ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/dishes").hasAnyRole("ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/dishes/many").hasAnyRole("ADMIN", "SUPERADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/dishes").hasAnyRole("ADMIN", "SUPERADMIN")
-
-                        // SUPERADMIN only
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/dishes/{id}").hasAnyRole("SUPERADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/dishes/clear-all").hasRole("SUPERADMIN")
-
                         .anyRequest().authenticated())
 
                 .httpBasic(Customizer.withDefaults());
