@@ -22,63 +22,63 @@ public class DishRestController {
     private final DishService dishService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', 'SUPERADMIN')")
     public List<Dish> getAll() {
         return dishService.getAll();
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', 'SUPERADMIN')")
     public Dish showOneById(@PathVariable String id) {
         return dishService.getById(id);
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERADMIN')")
     public Dish insert(@RequestBody Dish Dish) {
         return dishService.create(Dish);
     }
 
     @PostMapping("/many")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERADMIN')")
     public List<Dish> insertMultiple(@RequestBody List<Dish> dishes) {
         return dishService.createMany(dishes);
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERADMIN')")
     public Dish edit(@RequestBody Dish Dish) {
         return dishService.update(Dish);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('SUPERADMIN')")
     public void delete(@PathVariable String id) {
         dishService.delById(id);
     }
 
     @DeleteMapping("/clear-all")
-    @PreAuthorize("hasRole('SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('SUPERADMIN')")
     public void clearAllDishes() {
         dishService.deleteAll();
     }
 
     // lab2. endpoints for req
     @GetMapping("/category/{category}")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', 'SUPERADMIN')")
     public List<Dish> getDishByCategory(@PathVariable String category) {
         return dishService.getByCategory(category);
     }
 
     @GetMapping("/most-expensive")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERADMIN')")
     public Dish getMostExpensiveMeal() {
         return dishService.getMostExpensive();
     }
 
     @GetMapping("/low-calorie/{maxCalories}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPERADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERADMIN')")
     public List<Dish> getLowCalorieMeals(@PathVariable int maxCalories) {
         return dishService.getByCaloriesLowerThan(maxCalories);
     }
